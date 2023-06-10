@@ -1,5 +1,9 @@
 #Импорт
 from flask import Flask, render_template, request
+from info import subject, password, sender
+from email.mime.text import MIMEText
+import smtplib
+import ssl
 
 
 app = Flask(__name__)
@@ -46,10 +50,23 @@ def end(size, lights, device):
 def form():
     return render_template('form.html')
 
+# отправка сообщения на почту
+def send_email(message):
+    context = ssl.create_default_context()
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls(context=context)
+        server.login(sender, password)
+        server.sendmail(sender, email, message.encode('utf-8'))
+        server.quit()
+        return 'The message was sent successfully'
+    except Exception as e:
+        return f'An error occurred! The error is "{e}"'
+
 #Результаты формы
 @app.route('/submit', methods=['POST'])
 def submit_form():
-    #Создай переменные для сбора информации
+    global name, email, address, date
     name = request.form['name']
     email = request.form['email']
     address = request.form['address']
@@ -57,7 +74,13 @@ def submit_form():
     # запись в txt файл
     with open('file.txt', 'w', encoding='utf-8') as f:
         f.write('Ваше имя: ' + name + '\n' + 'Ваша электронная почта: ' + email + '\n' + 'Ваш адрес: ' + address + '\n' + 'Ваша дата: ' + date)
-
+    # функция отправки сообщения на почту
+    send_email(f'''
+        Ваше имя: {name}
+        Ваша электронная почта: {email}
+        Ваш адрес: {address}
+        Ваша дата: {date}
+    ''')
     # здесь вы можете сохранить данные или отправить их по электронной почте
     return render_template('form_result.html', 
                            #Помести переменные
@@ -66,5 +89,6 @@ def submit_form():
                            address=address,
                            date=date
                            )
+    
 
 app.run(debug=True)

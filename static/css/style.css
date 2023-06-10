@@ -196,3 +196,14 @@ label {
 .result_text span {
 	color: #eb8028;
 }
+
+.check {
+	margin-top: 15px;
+	font-size: 22px;
+	text-align: center;
+	line-height: 150%;
+}
+
+.mail {
+	margin-left: calc(50vw - 24px);
+}
