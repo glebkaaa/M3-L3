@@ -1,7 +1,7 @@
 import ssl
 import smtplib
 from flask import Flask, render_template, request
-from info import subject, password, sender
+from info import password, sender
 from email.mime.text import MIMEText
 
 
