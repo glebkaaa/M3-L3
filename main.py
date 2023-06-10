@@ -66,7 +66,7 @@ def send_email(message):
 #Результаты формы
 @app.route('/submit', methods=['POST'])
 def submit_form():
-    global name, email, address, date
+    global email
     name = request.form['name']
     email = request.form['email']
     address = request.form['address']
