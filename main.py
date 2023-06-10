@@ -73,8 +73,7 @@ def submit_form():
     address = request.form['address']
     date = request.form['date']
     with open('file.txt', 'w', encoding='utf-8') as f:
-        f.write('Ваше имя: ' + name + '\n' + 'Ваша электронная почта: ' +
-                email + '\n' + 'Ваш адрес: ' + address + '\n' + 'Ваша дата: ' + date)
+        f.write(f'Ваше имя: {name} \nВаша электронная почта: {email} \nВаш адрес: {address} \nВаша дата: {date}')
 
     send_email(f'''
         Ваше имя: {name}
