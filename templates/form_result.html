@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="../static/css/style.css" />
+	</head>
+	<body>
+		{% block content %}
+		<div class="result">
+			<h1 class="thanks">Спасибо за заполнение заявки!</h1>
+			<p class="result_text">Ваше <span>имя</span>: {{name}}</p>
+			<p class="result_text">Ваша <span>электронная почта</span>: {{email}}</p>
+			<p class="result_text">Ваш <span>адрес</span>: {{address}}</p>
+			<p class="result_text">Ваша <span>дата</span>: {{date}}</p>
+		</div>
+		{% endblock %}
+	</body>
+</html>
