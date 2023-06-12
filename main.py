@@ -1,10 +1,9 @@
 import ssl
 import smtplib
 import requests
-from bs4 import BeautifulSoup
 from flask import Flask, render_template, request
 from info import password, sender
-from email.mime.text import MIMEText
+from bs4 import BeautifulSoup
 
 
 app = Flask(__name__)
@@ -76,7 +75,7 @@ def submit_form():
     email = request.form['email']
     address = request.form['address']
     date = request.form['date']
-    
+
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     result = soup.find('span', class_='result_energy').text
@@ -85,7 +84,7 @@ def submit_form():
     with open('file.txt', 'w', encoding='utf-8') as f:
         f.write(
             f'Ваше имя: {name} \nВаша электронная почта: {email} \nВаш адрес: {address} \nВаша дата: {date} \nВаш результат: {result} \nКоличество кВт⋅ч: {count}')
-    
+
     send_email(f'''
         Ваше имя: {name}
         Ваша электронная почта: {email}
