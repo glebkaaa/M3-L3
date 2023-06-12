@@ -85,7 +85,7 @@ def submit_form():
     with open('file.txt', 'w', encoding='utf-8') as f:
         f.write(
             f'Ваше имя: {name} \nВаша электронная почта: {email} \nВаш адрес: {address} \nВаша дата: {date} \nВаш результат: {result} \nКоличество кВт⋅ч: {count}')
-        
+    
     send_email(f'''
         Ваше имя: {name}
         Ваша электронная почта: {email}
