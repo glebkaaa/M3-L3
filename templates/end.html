@@ -25,17 +25,17 @@
 			<div class="main__rez" id="end">
 				{%if result <= 150%}
 				<img class="rez__img" src="../../static/img/planet_good.svg" alt="" />
-				<span>Ваш результат {{result}} кВт⋅ч</span>
-				<span>Ваш дом имеет отличную энергоэффективности!</span>
+				<span class="count_energy">Ваш результат {{result}} кВт⋅ч</span>
+				<span class="result_energy">Ваш дом имеет отличную энергоэффективность!</span>
 				{%elif result >= 151 and result < 300%}
 				<img class="rez__img" src="../../static/img/planet_medium.svg" alt="" />
-				<span>Ваш результат {{result}} кВт⋅ч</span>
-				<span>Ваш дом имеет среднюю энергоэффективности!</span>
+				<span class="count_energy">Ваш результат {{result}} кВт⋅ч</span>
+				<span class="result_energy">Ваш дом имеет среднюю энергоэффективность!</span>
 				<a href="{{ url_for('form') }}" class="main_link">Заполнить форму</a>
 				{%elif result >= 300%}
 				<img class="rez__img" src="../../static/img/planet_bad.svg" alt="" />
-				<span>Ваш результат {{result}} кВт⋅ч</span>
-				<span>Ваш дом имеет плохую энергоэффективности!</span>
+				<span class="count_energy">Ваш результат {{result}} кВт⋅ч</span>
+				<span class="result_energy">Ваш дом имеет плохую энергоэффективность!</span>
 				<a href="{{ url_for('form') }}" class="main_link">Заполнить форму</a>
 				{%endif%}
 			</div>

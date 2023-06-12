@@ -1,5 +1,7 @@
 import ssl
 import smtplib
+import requests
+from bs4 import BeautifulSoup
 from flask import Flask, render_template, request
 from info import password, sender
 from email.mime.text import MIMEText
@@ -39,6 +41,8 @@ def electronics(size, lights):
 
 @app.route('/<size>/<lights>/<device>')
 def end(size, lights, device):
+    global url
+    url = f'http://127.0.0.1:5000/{size}/{lights}/{device}'
     return render_template('end.html',
                            result=result_calculate(int(size),
                                                    int(lights),
@@ -72,14 +76,23 @@ def submit_form():
     email = request.form['email']
     address = request.form['address']
     date = request.form['date']
-    with open('file.txt', 'w', encoding='utf-8') as f:
-        f.write(f'Ваше имя: {name} \nВаша электронная почта: {email} \nВаш адрес: {address} \nВаша дата: {date}')
+    
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    result = soup.find('span', class_='result_energy').text
+    count = soup.find('span', class_='count_energy').text
 
+    with open('file.txt', 'w', encoding='utf-8') as f:
+        f.write(
+            f'Ваше имя: {name} \nВаша электронная почта: {email} \nВаш адрес: {address} \nВаша дата: {date} \nВаш результат: {result} \nКоличество кВт⋅ч: {count}')
+        
     send_email(f'''
         Ваше имя: {name}
         Ваша электронная почта: {email}
         Ваш адрес: {address}
         Ваша дата: {date}
+        Ваш результат: {result}
+        Количество кВт⋅ч: {count}
     ''')
     return render_template('form_result.html',
                            name=name,
