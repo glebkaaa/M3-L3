@@ -81,7 +81,7 @@ def submit_form():
     result = soup.find('span', class_='result_energy').text
     count = soup.find('span', class_='count_energy').text
 
-    with open('file.txt', 'w', encoding='utf-8') as f:
+    with open('file.txt', 'a', encoding='utf-8') as f:
         f.write(
             f'Ваше имя: {name} \nВаша электронная почта: {email} \nВаш адрес: {address} \nВаша дата: {date} \nВаш результат: {result} \nКоличество кВт⋅ч: {count}')
 
